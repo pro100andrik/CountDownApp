@@ -40,6 +40,7 @@ class Countdown extends React.Component{
           <tr><td>Days</td><td>Hours</td><td>Minutes</td><td>Seconds</td></tr>
         </tbody>
       </table>
+      <button onClick={this.props.handleChangeEvent}> change event </button>
     </span>
     )
   }

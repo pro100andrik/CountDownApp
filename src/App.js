@@ -5,17 +5,29 @@ import Countdown from './components/Countdown';
 
 import './App.css';
 
+const myStorage = window.localStorage;
+
 
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = ({
-      date: new Date(),
-      renderInput: true,
-      event: "your event ",
-      showErrMessage: false,
-      showCongrats: false
-    })
+    if (myStorage.length === 0){
+      this.state = ({
+        date: new Date(),
+        renderInput: true,
+        event: "your event ",
+        showErrMessage: false,
+        showCongrats: false
+      })
+    }else{
+      this.state = ({
+        date: new Date(+myStorage.getItem('date')),
+        renderInput: false,
+        event: myStorage.getItem('event'),
+        showErrMessage: false,
+        showCongrats: false
+      })
+    }
   }
 
   handleChangeDate = value => {
@@ -30,7 +42,6 @@ class App extends React.Component {
         date: new Date(Date.parse(value))
       })
     }
-    console.log('changing time to ' + value)
   }
 
   handleUnmount = () => {
@@ -40,6 +51,8 @@ class App extends React.Component {
       });
       setTimeout(() => this.setState({ showErrMessage: false  }),2000)
     }else{
+      myStorage.setItem('date', Date.parse(this.state.date));
+      myStorage.setItem('event', this.state.event);
       this.setState({
         renderInput: false
       })
@@ -54,6 +67,17 @@ class App extends React.Component {
 
   changeShowCongrats = () => {
     this.setState ({showCongrats: true})
+    myStorage.clear();
+  }
+
+  handleChangeEvent = () => {
+    this.setState({
+      date: new Date(),
+      renderInput: true,
+      event: "your event ",
+      showCongrats: false,
+    })
+    myStorage.clear();
   }
 
   render(){
@@ -69,12 +93,16 @@ class App extends React.Component {
           handleUpdateEvent={this.handleUpdateEvent} />
           :
         this.state.showCongrats ?
-        <div className='congrats'> CONGRATUATION! <br />{this.state.event} is happent </div>
+        <>
+          <div className='congrats'> CONGRATUATION! <br />{this.state.event} is happent </div>
+          <button onClick={this.handleChangeEvent}> set new event </button>
+        </>
           :
         <Countdown
           targetDate={this.state.date}
           event={this.state.event}
-          changeShowCongrats={this.changeShowCongrats}/>}
+          changeShowCongrats={this.changeShowCongrats}
+          handleChangeEvent={this.handleChangeEvent}/>}
       </div>
     )
   }
