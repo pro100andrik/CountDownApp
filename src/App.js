@@ -11,7 +11,7 @@ const myStorage = window.localStorage;
 class App extends React.Component {
   constructor(props){
     super(props);
-    if (myStorage.length === 0){
+    if (!myStorage.getItem('countdownAppEvent')){
       this.state = ({
         date: new Date(),
         renderInput: true,
@@ -21,9 +21,9 @@ class App extends React.Component {
       })
     }else{
       this.state = ({
-        date: new Date(+myStorage.getItem('date')),
+        date: new Date(+myStorage.getItem('countdownAppDate')),
         renderInput: false,
-        event: myStorage.getItem('event'),
+        event: myStorage.getItem('countdownAppEvent'),
         showErrMessage: false,
         showCongrats: false
       })
@@ -51,8 +51,8 @@ class App extends React.Component {
       });
       setTimeout(() => this.setState({ showErrMessage: false  }),2000)
     }else{
-      myStorage.setItem('date', Date.parse(this.state.date));
-      myStorage.setItem('event', this.state.event);
+      myStorage.setItem('countdownAppDate', Date.parse(this.state.date));
+      myStorage.setItem('countdownAppEvent', this.state.event);
       this.setState({
         renderInput: false
       })
@@ -67,7 +67,8 @@ class App extends React.Component {
 
   changeShowCongrats = () => {
     this.setState ({showCongrats: true})
-    myStorage.clear();
+    myStorage.removeItem('countdownAppDate');
+    myStorage.removeItem('countdownAppEvent');
   }
 
   handleChangeEvent = () => {
@@ -77,7 +78,8 @@ class App extends React.Component {
       event: "your event ",
       showCongrats: false,
     })
-    myStorage.clear();
+    myStorage.removeItem('countdownAppDate');
+    myStorage.removeItem('countdownAppEvent');
   }
 
   render(){
