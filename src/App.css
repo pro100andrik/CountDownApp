@@ -98,7 +98,7 @@ td {
   .datepicker {
     height: 40px;
     font-size: 20px;
-    width: 100%;
+    width: 80vw;
   }
 
   .tittle-countdown {

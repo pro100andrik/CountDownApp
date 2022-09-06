@@ -18,16 +18,15 @@ const InputField = props => {
   }
 
 
-    function formatDate(date){
-      return (
-        date.getFullYear() + '-' +
-        ('0' + (+date.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + +date.getDate()).slice(-2) +
-        'T' + date.toLocaleTimeString()
-      )
-    }
+    // function formatDate(date){
+    //   return (
+    //     date.getFullYear() + '-' +
+    //     ('0' + (+date.getMonth() + 1)).slice(-2) + '-' +
+    //     ('0' + +date.getDate()).slice(-2) +
+    //     'T' + date.toLocaleTimeString().slice(0, 5)
+    //   )
+    // }
     return(
-      //    When <span className='event-name'><input type='text' placeholder="your event name" onChange={handleTittleChange} /></span>
       <div>
         <div className='caption'>
 
@@ -43,8 +42,7 @@ const InputField = props => {
         {props.showErrMessage ? <ErrMessage /> : null}
         <div><input
                 type='datetime-local'
-                step='1'
-                value={formatDate(props.date)}
+                step='60'
                 onChange={handleChange}
                 className='datepicker'
               /></div>
