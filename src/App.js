@@ -31,6 +31,9 @@ class App extends React.Component {
   }
 
   handleChangeDate = value => {
+    if (value.length < 1) {
+      return
+    }
     if (new Date(Date.parse(value)) < new Date()){
       this.setState({
         showErrMessage: true
