@@ -26,6 +26,7 @@ class Countdown extends React.Component{
   }
 
   render(){
+
     let diff = this.state.difference;
     let seconds = parseInt(diff % 60);
     let minutes = parseInt(diff / 60 % 60);

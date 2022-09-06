@@ -33,7 +33,7 @@ const InputField = props => {
 
         When <span className='event-name'>
                 <span onBlur={handleTittleChange}
-                  onClick={clearEvent} 
+                  onClick={clearEvent}
                   contentEditable
                   suppressContentEditableWarning={true}> {props.event}
                 </span>
@@ -48,6 +48,7 @@ const InputField = props => {
                 onChange={handleChange}
                 className='datepicker'
               /></div>
+        <div className='test'>  </div>
         <button onClick={handleClick}> Show me how long to wait! </button>
       </div>
     )
